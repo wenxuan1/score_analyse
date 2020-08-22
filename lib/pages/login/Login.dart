@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:score_analyse/components/tabBars/TabBars.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:score_analyse/components/myDialog/MyDialog.dart';
 import 'package:score_analyse/pages/register/Register.dart';
@@ -12,20 +16,65 @@ bool _isEmpty(context, username, password) {
           Icons.cancel,
           size: 40,
         ),
-        text: "用户名不能为空"));
+        text: "用户名不能为空"
+      )
+    );
     return true;
   } else if (password.text == "" || password.text == null) {
     showDialog(
       context: context,
       builder: (context) => MyDialog(
-        icons: Icon(
-          Icons.cancel,
-          size: 40,
-        ),
-        text: "密码不能为空"));
+          icons: Icon(
+            Icons.cancel,
+            size: 40,
+          ),
+          text: "密码不能为空"
+        )
+      );
     return true;
   } else {
     return false;
+  }
+}
+
+// 登录函数
+void _lg(context, username, password) async {
+  String InUname = username.text;
+  String InPword = password.text;
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if(InUname == prefs.getString("username") && InPword == prefs.getString("password")) {
+    showDialog(
+      context: context,
+      builder: (context) => MyDialog(
+        icons: Icon(
+          Icons.check_circle,
+          size: 40,
+          color: Colors.greenAccent,
+        ),
+        text: "登录成功"
+      )
+    );
+    const timeout = const Duration(milliseconds: 2100);
+    Timer(timeout, () {
+      //到时回调
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TabBars()
+        )
+      );
+    });
+  } else {
+    showDialog(
+        context: context,
+        builder: (context) => MyDialog(
+          icons: Icon(
+            Icons.sentiment_dissatisfied,
+            size: 40
+          ),
+          text: "用户名或密码错误"
+        )
+    );
   }
 }
 
@@ -105,8 +154,8 @@ class _LoginState extends State<Login> {
                     textColor: Colors.white,
                     onPressed: () {
                       _isEmpty(context, this._username,this._password) ?
-                      print("失败") :
-                      print("开始登陆操作");
+                      print("输入框有空") :
+                      _lg(context, _username, _password);
                     }),
                 )
               ],
@@ -115,37 +164,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-//class llogin extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return ListView(
-//      scrollDirection: Axis.horizontal,
-//      children: [
-//        ClipOval(
-//          child: Container(
-//            width: 50,
-//            height: 50,
-//            color: Colors.blue,
-//            child: Icon(
-//              Icons.people,
-//              color: Colors.white,
-//            ),
-//          ),
-//        ),
-//        ClipOval(
-//          child: Container(
-//            width: 50,
-//            height: 50,
-//            color: Colors.blue,
-//            child: Icon(
-//              Icons.people,
-//              color: Colors.white,
-//            ),
-//          ),
-//        )
-//      ],
-//    );
-//  }
-//}

@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:score_analyse/components/myDialog/MyDialog.dart';
 import 'package:score_analyse/pages/login/Login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // 判空函数
 bool _isEmpty(context, username, password) {
@@ -31,6 +34,39 @@ bool _isEmpty(context, username, password) {
   } else {
     return false;
   }
+}
+
+// 注册函数
+void _re(context, username, password, identify) async {
+  String uname = username.text;
+  String pword = password.text;
+  String itify = identify == 1 ? "teacher" : "student";
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("username", uname);
+  prefs.setString("password", pword);
+  prefs.setString("userpicture", "https://img03.sogoucdn.com/app/a/100520093/fb41c7c77a2454f7-01eba5833e7e38bc-11cc0200d4b834a0dddb28091fd46806.jpg");
+  prefs.setString("identify", itify);
+  showDialog(
+    context: context,
+    builder: (context) => MyDialog(
+      icons: Icon(
+        Icons.check_circle,
+        size: 40,
+        color: Colors.greenAccent,
+      ),
+      text: "注册成功"
+    )
+  );
+  const timeout = const Duration(milliseconds: 2100);
+  Timer(timeout, () {
+    //到时回调
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Login()
+      )
+    );
+  });
 }
 
 class Register extends StatefulWidget {
@@ -150,7 +186,7 @@ class _RegisterState extends State<Register> {
                       onPressed: () {
                         _isEmpty(context, this._username,this._password) ?
                         print("失败") :
-                        print("开始注册操作");
+                        _re(context, _username, _password, _identify);
                       }
                   ),
                 )
