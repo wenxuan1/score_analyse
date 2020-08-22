@@ -51,7 +51,7 @@ class _TabBarsState extends State<TabBars> {
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.add),
-                title: Text("录入新增")
+                title: Text("新增成绩单")
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
