@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:score_analyse/components/homeCard/HomeCard.dart';
 import 'package:score_analyse/components/userDrawer/UserDrawer.dart';
+import 'package:score_analyse/data/Data.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -63,7 +64,19 @@ class _HomeState extends State<Home> {
   ];
 
   @override
+  void checkData() {
+    eventBus.on().listen((event) {
+      setState(() {
+        this._list = event.list;
+      });
+      print(event.list);
+    });
+//    print(_list);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    checkData();
     return Scaffold(
       // 侧边栏
       drawer: Drawer(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:score_analyse/components/addDialog/AddDialog.dart';
 
 class Grade extends StatefulWidget {
   int examId;
@@ -1489,7 +1490,7 @@ class _GradeState extends State<Grade> {
     
     List.generate(studentNames.length, (index) => {
       _data.add(User(studentNames[index], china[index], math[index], english[index], physics[index], chemistry[index], biology[index],
-          china[index]+math[index]+english[index]+ physics[index]+chemistry[index]+biology[index]
+          china[index]+math[index]+english[index]+physics[index]+chemistry[index]+biology[index]
       ))
     });
   }
@@ -1525,17 +1526,47 @@ class _GradeState extends State<Grade> {
               IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  print("增加数据");
+                  showDialog(
+                    context: context,
+                    builder: (context) => AddDialog()
+                  ).then((v) {
+                    setState(() {
+                      _data.add(User(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7]));
+                    });
+                  });
                 }
               ),
               IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  setState(() {
-                    _data.removeWhere((element) {
-                      return element.selected == true;
-                    });
-                  });
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("提示"),
+                        content: Text("确认删除选中成绩吗？"),
+                        actions: [
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("取消")
+                          ),
+                          FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  _data.removeWhere((element) {
+                                    return element.selected == true;
+                                  });
+                                });
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("确认")
+                          ),
+                        ],
+                      );
+                    }
+                  );
                 }
               )
             ],

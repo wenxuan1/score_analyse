@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// 录入成绩时  exam的id直接就是list列表的lenth长度
+import 'package:score_analyse/components/myDialog/MyDialog.dart';
+import 'package:score_analyse/data/Data.dart';
 
 class Add extends StatefulWidget {
   @override
@@ -88,9 +87,102 @@ class _AddState extends State<Add> {
           ),
         ),
       ),
-      body: Center(
-        child: Text("!!!!!!新增!!!!!!!"),
+      body: AddNewScore(list: _list)
+    );
+  }
+}
+
+class AddNewScore extends StatefulWidget {
+  List list;
+
+  AddNewScore({Key key, this.list}): super(key: key);
+
+  @override
+  _AddNewScoreState createState() => _AddNewScoreState();
+}
+
+class _AddNewScoreState extends State<AddNewScore> {
+  GlobalKey<FormState> _scoreKey = GlobalKey<FormState>(); // 表单校准用的key
+  var _name = TextEditingController();
+  var _time = TextEditingController();
+
+  void _goAdd(name, time) async {
+    String _examName = name;
+    String _examTime = time;
+
+    eventBus.fire(ScoreList(widget.list));
+    await widget.list.add({
+      'id': widget.list.length,
+      'name': _examName,
+      'time': _examTime
+    });
+    showDialog(
+      context: context,
+      builder: (context) => MyDialog(
+        icons: Icon(
+          Icons.check_circle,
+          size: 40,
+          color: Colors.greenAccent,
+        ),
+        text: "新增成功"
+      )
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(30),
+      child: Form(
+          key: _scoreKey,
+          autovalidate: false,
+          child: ListView(
+              children: [
+                TextFormField(
+                  controller: this._name,
+                  decoration: InputDecoration(
+                    labelText: "考试名称",
+                    hintText: "输入考试的名称"
+                  ),
+                  validator: (value) {
+                    return value.trim().length > 0 ? null : "不能为空";
+                  }
+                ),
+                TextFormField(
+                  controller: this._time,
+                  decoration: InputDecoration(
+                    labelText: "考试时间或备注",
+                    hintText: "输入考试的时间或备注"
+                  ),
+                  validator: (value) {
+                    return value.trim().length > 0 ? null : "不能为空";
+                  }
+                ),
+                Container(
+                  width: 100,
+                  padding: EdgeInsets.all(30),
+                  child: RaisedButton(
+                    child: Text(
+                      "新增成绩单",
+                      style: TextStyle(fontSize: 20)
+                    ),
+                    textColor: Colors.white,
+                    color: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      var key = _scoreKey.currentState;
+                      if (key.validate()) {
+                        key.save();
+                        _goAdd(this._name.text, this._time.text);
+                        this._name.text = "";
+                        this._time.text = "";
+                      }
+                    }
+                  )
+                )
+              ]
+          )
       ),
     );
   }
 }
+

@@ -12,15 +12,10 @@ class TabBars extends StatefulWidget {
 class _TabBarsState extends State<TabBars> {
   int _currentIndex = 0; // 当前选中的底部导航栏
 
-  List _pageList = [
-    Home(),
-    Add(),
-    Profile()
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // 浮动按钮不会被键盘顶上去了
       // 录入新增凸起按钮
       floatingActionButton: FloatingButton(
         index: this._currentIndex,
@@ -33,12 +28,12 @@ class _TabBarsState extends State<TabBars> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // 底部导航栏
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: this._currentIndex,
           onTap: (int index) {
             setState(() {
               this._currentIndex = index;
             });
           },
+          currentIndex: _currentIndex,
           iconSize: 30,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
@@ -60,7 +55,14 @@ class _TabBarsState extends State<TabBars> {
           ]
       ),
       // 根据底部导航显示的内容
-      body: this._pageList[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [
+          Home(),
+          Add(),
+          Profile()
+        ]
+      )
     );
   }
 }

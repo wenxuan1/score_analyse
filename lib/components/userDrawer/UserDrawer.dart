@@ -70,7 +70,7 @@ class UserInformation extends StatelessWidget {
                     _userName,
                     style: TextStyle(fontSize: 23)
                   ),
-                  accountEmail: Row(
+                  accountEmail: this._identify == "teacher" ? Row(
                     children: [
                       Icon(
                         Icons.camera,
@@ -84,7 +84,7 @@ class UserInformation extends StatelessWidget {
                         ),
                       )
                     ],
-                  ),
+                  ) : null,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,

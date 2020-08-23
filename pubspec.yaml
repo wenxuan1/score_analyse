@@ -31,6 +31,7 @@ dependencies:
   dio: ^3.0.10
   http: ^0.12.2
   shared_preferences: ^0.5.8
+  event_bus: ^1.1.0
 
 dev_dependencies:
   flutter_test:

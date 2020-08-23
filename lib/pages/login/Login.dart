@@ -128,7 +128,8 @@ class _LoginState extends State<Login> {
                     labelText: "密码",
                     hintText: "请输入密码",
                     hintStyle: TextStyle(color: Colors.black26)),
-                  controller: this._password),
+                  controller: this._password
+                ),
                 SizedBox(height: 20),
                 GestureDetector(
                   child: Text(
@@ -156,7 +157,8 @@ class _LoginState extends State<Login> {
                       _isEmpty(context, this._username,this._password) ?
                       print("输入框有空") :
                       _lg(context, _username, _password);
-                    }),
+                    }
+                  ),
                 )
               ],
             ),

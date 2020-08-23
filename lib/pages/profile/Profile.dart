@@ -184,21 +184,21 @@ class _HeaderUserInformationState extends State<HeaderUserInformation> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                  height: 85,
-                  width: 85,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(150),
-                      image: DecorationImage(
-                          image: NetworkImage(widget._userPicture)
-                      )
+                height: 85,
+                width: 85,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(150),
+                  image: DecorationImage(
+                      image: NetworkImage(widget._userPicture)
                   )
+                )
               ),
               SizedBox(height: 5),
               Text(
                 widget._userName,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
+                  color: Colors.white,
+                  fontSize: 25
                 ),
               ),
               SizedBox(height: 10),
@@ -207,8 +207,8 @@ class _HeaderUserInformationState extends State<HeaderUserInformation> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                      Icons.camera,
-                      color: Colors.blue
+                    Icons.camera,
+                    color: Colors.blue
                   ),
                   SizedBox(width: 5),
                   Text(
@@ -241,102 +241,102 @@ class _UserOperationState extends State<UserOperation> {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
-        children: [
-          ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              child: CircleAvatar(
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                  size: 25,
+          children: [
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                child: CircleAvatar(
+                  child: Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  backgroundColor: Colors.blue,
                 ),
-                backgroundColor: Colors.blue,
               ),
-            ),
-            title: Text(
-              "我的喜爱",
-              style: TextStyle(
-                  fontSize: 20
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("更多功能开发中");
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              child: CircleAvatar(
-                child: Icon(
-                  Icons.class_,
-                  color: Colors.white,
-                  size: 25,
-                ),
-                backgroundColor: Colors.blue,
-              ),
-            ),
-            title: Text(
-              "我的收藏",
-              style: TextStyle(
-                  fontSize: 20
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("更多功能开发中");
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              child: CircleAvatar(
-                child: Icon(
-                  Icons.people,
-                  color: Colors.white,
-                  size: 25,
-                ),
-                backgroundColor: Colors.blue,
-              ),
-            ),
-            title: Text(
-              "我的联系人",
-              style: TextStyle(
-                  fontSize: 20
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("更多功能开发中");
-            },
-          ),
-          Divider(),
-          RaisedButton(
-              child: Text(
-                "退出登录",
+              title: Text(
+                "我的喜爱",
                 style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold
+                    fontSize: 20
                 ),
               ),
-              color: Colors.red,
-              textColor: Colors.white,
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                print("更多功能开发中");
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                child: CircleAvatar(
+                  child: Icon(
+                    Icons.class_,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  backgroundColor: Colors.blue,
+                ),
               ),
-              onPressed: () {
-                widget.exit();
-              }
-          )
-        ],
-      ),
+              title: Text(
+                "我的收藏",
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                print("更多功能开发中");
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                child: CircleAvatar(
+                  child: Icon(
+                    Icons.people,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  backgroundColor: Colors.blue,
+                ),
+              ),
+              title: Text(
+                "我的联系人",
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                print("更多功能开发中");
+              },
+            ),
+            Divider(),
+            RaisedButton(
+                child: Text(
+                  "退出登录",
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                color: Colors.red,
+                textColor: Colors.white,
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                onPressed: () {
+                  widget.exit();
+                }
+            )
+          ],
+        )
     );
   }
 }
